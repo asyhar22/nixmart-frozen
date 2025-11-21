@@ -1,0 +1,54 @@
+name: AutoSync Deploy
+
+on:
+  push:
+    branches:
+      - main   # change if your default branch is different
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install cloudflared
+        run: |
+          sudo mkdir -p /usr/local/bin
+          sudo curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared
+          sudo chmod +x /usr/local/bin/cloudflared
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Configure Cloudflare SSH
+        run: |
+          mkdir -p ~/.ssh
+          cloudflared access ssh-config --hostname ssh.asyhar.fun \
+            | grep -v -E "Add |^#" >> ~/.ssh/config
+          chmod 600 ~/.ssh/config
+
+      - name: Export Cloudflare Service Token
+        run: |
+          echo "CF_ACCESS_CLIENT_ID=${{ secrets.CF_ACCESS_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "CF_ACCESS_CLIENT_SECRET=${{ secrets.CF_ACCESS_CLIENT_SECRET }}" >> $GITHUB_ENV
+
+      - name: Deploy files using rsync
+        run: |
+          rsync -avz -e "ssh -p 22" ./source/ root@ssh.asyhar.fun:/var/www/nixmart/
+
+      - name: Post-deploy commands (Static Website + Nginx)
+        run: |
+          ssh -o StrictHostKeyChecking=no root@ssh.asyhar.fun << 'EOF'
+            echo "Verifying Nginx config..."
+            nginx -t
+
+            echo "Reloading Nginx gracefully (zero downtime)..."
+            systemctl reload nginx
+
+            echo "Static website deployed successfully."
+          EOF
