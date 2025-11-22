@@ -2,66 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NixMart — Premium Frozen Meals</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nixmart — Modern Product Showcase</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<body class="fade-page">
   <header class="site-header">
-    <nav class="nav container">
-      <a class="logo" href="#">
-        <img src="/Logo_NixMart.png" alt="NixMart logo" />
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img src="assets/img/logo/logo-180x60.png" alt="Nixmart logo" class="logo-img">
+        <span class="logo-text">Nixmart</span>
       </a>
-      <ul class="nav-links">
-        <li><a href="#shop">Shop</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
-    </nav>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+      </nav>
+    </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <h1>Premium Frozen Meals, Ready in Minutes</h1>
-          <p class="hero-sub">Restaurant-quality meals prepared, frozen, and shipped for your convenience — delicious, simple, and quick.</p>
-          <p>
-            <a class="btn primary" href="#shop">Shop Now</a>
-            <a class="btn outline" href="#about">Learn More</a>
-          </p>
-        </div>
-        <div class="hero-image" aria-hidden="true">
-          <!-- Decorative image could go here; keep empty so designers can replace with a product photo -->
-        </div>
+      <picture>
+        <source srcset="assets/img/hero/Hero_NixMart_large.webp" type="image/webp">
+        <source srcset="assets/img/hero/Hero_NixMart_large.png" media="(min-width: 900px)">
+        <img src="assets/img/hero/Hero_NixMart_medium.webp" alt="Nixmart modern products" loading="lazy">
+      </picture>
+      <div class="hero-content container">
+        <h1>Modern products that fit your life</h1>
+        <p>Curated selection. Thoughtful design. Reliable performance.</p>
+        <a class="btn" href="products.html">Browse Products</a>
       </div>
     </section>
 
-    <section class="featured container" id="shop">
-      <h2>Featured Products</h2>
-      <div id="product-grid" class="product-grid">
-        <!-- Products will be inserted here -->
+    <section class="featured container">
+      <h2>Featured products</h2>
+      <div id="product-grid" class="grid"></div>
+
       </div>
-    </section>
-
-    <section class="about container" id="about">
-      <h2>About Us</h2>
-      <p>At NixMart we craft premium frozen meals using high-quality ingredients and chef-inspired recipes so you can enjoy restaurant flavors at home.</p>
-    </section>
-
-    <section class="contact container" id="contact">
-      <h2>Contact</h2>
-      <p>Questions? Email us at <a href="mailto:hello@asyhar.fun">hello@asyhar.fun</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2025 NixMart. All rights reserved.</p>
+      <p>© <span id="year"></span> Nixmart — All rights reserved.</p>
     </div>
   </footer>
 
-  <script type="module" src="main.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/productData.js"></script>
+  <script src="assets/js/renderProducts.js"></script>
 </body>
 </html>

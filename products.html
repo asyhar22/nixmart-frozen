@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Products — Nixmart</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body class="fade-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="index.html">
+          <img
+            src="assets/img/logo/logo-180x60.png"
+            alt="Nixmart logo"
+            class="logo-img"
+          />
+          <span class="logo-text">Nixmart</span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="products.html">Products</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Products</h1>
+      <!-- Product grid is rendered dynamically by assets/js/renderProducts.js -->
+      <div class="product-controls">
+        <input type="text" id="search" placeholder="Search products…" />
+        <select id="category-filter">
+          <option value="all">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Home">Home</option>
+        </select>
+      </div>
+
+      <div id="product-grid" class="grid"></div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="year2"></span> Nixmart</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/productData.js"></script>
+    <script src="assets/js/renderProducts.js"></script>
+    <script src="assets/js/filterProducts.js"></script>
+  </body>
+</html>
