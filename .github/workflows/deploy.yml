@@ -1,9 +1,8 @@
-name: AutoSync Deploy
+name: Deploy to Server
 
 on:
   push:
-    branches:
-      - main   # change if your default branch is different
+    branches: ["main"]
 
 jobs:
   deploy:
@@ -13,42 +12,22 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install cloudflared
-        run: |
-          sudo mkdir -p /usr/local/bin
-          sudo curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared
-          sudo chmod +x /usr/local/bin/cloudflared
+      - name: Install SSH client
+        run: sudo apt-get install -y openssh-client rsync
 
-      - name: Setup SSH key
+      - name: Deploy using rsync over SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p ${SSH_PORT} ${SSH_HOST} >> ~/.ssh/known_hosts
 
-      - name: Configure Cloudflare SSH
-        run: |
-          mkdir -p ~/.ssh
-          cloudflared access ssh-config --hostname ssh.asyhar.fun \
-            | grep -v -E "Add |^#" >> ~/.ssh/config
-          chmod 600 ~/.ssh/config
-
-      - name: Export Cloudflare Service Token
-        run: |
-          echo "CF_ACCESS_CLIENT_ID=${{ secrets.CF_ACCESS_CLIENT_ID }}" >> $GITHUB_ENV
-          echo "CF_ACCESS_CLIENT_SECRET=${{ secrets.CF_ACCESS_CLIENT_SECRET }}" >> $GITHUB_ENV
-
-      - name: Deploy files using rsync
-        run: |
-          rsync -avz -e "ssh -p 22" ./source/ root@ssh.asyhar.fun:/var/www/nixmart/
-
-      - name: Post-deploy commands (Static Website + Nginx)
-        run: |
-          ssh -o StrictHostKeyChecking=no root@ssh.asyhar.fun << 'EOF'
-            echo "Verifying Nginx config..."
-            nginx -t
-
-            echo "Reloading Nginx gracefully (zero downtime)..."
-            systemctl reload nginx
-
-            echo "Static website deployed successfully."
-          EOF
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -p ${SSH_PORT}" \
+            ./ \
+            ${SSH_USERNAME}@${SSH_HOST}:/var/www/nixmart/
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
