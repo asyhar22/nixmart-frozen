@@ -15,22 +15,25 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install -y openssh-client rsync
 
-      - name: Deploy using rsync over SSH
+      - name: Deploy via rsync
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           set -x
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p ${SSH_PORT} ${SSH_HOST} >> ~/.ssh/known_hosts
 
-          echo "---- Testing SSH connection ----"
-          ssh -vvv -i ~/.ssh/id_ed25519 -p ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST} "echo OK"
+          # SSH host key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+          echo "---- Testing SSH ----"
+          ssh -vvv -i ~/.ssh/id_ed25519 -p "$SSH_PORT" "$SSH_USERNAME@$SSH_HOST" "echo OK"
 
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/id_ed25519 -p ${SSH_PORT}" \
+            -e "ssh -i ~/.ssh/id_ed25519 -p $SSH_PORT" \
             ./ \
-            ${SSH_USERNAME}@${SSH_HOST}:/var/www/nixmart/        env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
+            "$SSH_USERNAME@$SSH_HOST:/var/www/nixmart/"
