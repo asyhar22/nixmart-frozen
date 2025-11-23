@@ -33,4 +33,6 @@ jobs:
 
           echo "Running rsync deployment..."
           rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=accept-new -i ~/.ssh/id_ed25519 "$SSH_USERNAME@$SSH_HOST:/var/www/nixmart/" echo "Deployment complete."
+            -e "ssh -o StrictHostKeyChecking=accept-new -i ~/.ssh/id_ed25519" \
+            ./ $SSH_USERNAME@$SSH_HOST:/var/www/nixmart/
+          echo "Deployment complete."
