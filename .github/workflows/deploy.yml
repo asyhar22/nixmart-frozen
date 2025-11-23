@@ -30,12 +30,15 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
 
           echo "Testing SSH connection..."
-          ssh -i ~/.ssh/id_ed25519 -p "$SSH_PORT" "$SSH_USERNAME@$SSH_HOST" "echo Connected OK"
+          ssh -o StrictHostKeyChecking=no \
+              -i ~/.ssh/id_ed25519 \
+              -p "$SSH_PORT" \
+              "$SSH_USERNAME@$SSH_HOST" "echo Connected OK"
 
           echo "Running rsync deployment..."
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/id_ed25519 -p $SSH_PORT" \
+            -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 -p $SSH_PORT" \
             ./ \
             "$SSH_USERNAME@$SSH_HOST:/var/www/nixmart/"
 
-          echo "Deployment complete."
+            echo "Deployment complete."
