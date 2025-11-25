@@ -63,7 +63,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const priceEl = document.createElement("p");
   priceEl.className = "price-large";
-  priceEl.textContent = `Rp. ${product.price}`;
+  // Format price with thousand separators
+  const formatPrice = (value) => {
+    try {
+      return `Rp. ${new Intl.NumberFormat('id-ID').format(value)}`;
+    } catch (e) {
+      return `Rp. ${value}`;
+    }
+  };
+  priceEl.textContent = formatPrice(product.price);
   aside.appendChild(priceEl);
 
   // Use the full product description (fallback to short if missing)

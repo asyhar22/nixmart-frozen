@@ -29,6 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // clear existing
     grid.textContent = "";
 
+    // helper for currency formatting
+    const formatPrice = (value) => {
+      try {
+        return `Rp. ${new Intl.NumberFormat('id-ID').format(value)}`;
+      } catch (e) {
+        return `Rp. ${value}`;
+      }
+    };
+
     list.forEach((p) => {
       const imgs = p.images || {};
       const largeWebp = imgs.large || "";
@@ -94,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const price = document.createElement("p");
       price.className = "price";
-      price.textContent = `$${p.price}`;
+      price.textContent = formatPrice(p.price);
       body.appendChild(price);
 
       article.appendChild(imgLink);

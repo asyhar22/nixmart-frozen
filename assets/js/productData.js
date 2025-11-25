@@ -11,7 +11,7 @@ window.productData = [
       medium: "assets/img/products/Gourmet_Wild_Mushroom_Risotto_medium.webp",
       large: "assets/img/products/Gourmet_Wild_Mushroom_Risotto_large.webp",
     },
-    category: "Italian / Vegetarian / Main Dish",
+    category: "Main Dish",
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ window.productData = [
       large:
         "assets/img/products/Artisan_Spinach_&_Feta_Phyllo_Swirls_large.webp",
     },
-    category: "Greek / Appetizer / Vegetarian",
+    category: "Appetizer",
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ window.productData = [
       large:
         "assets/img/products/Homestyle_Chicken_&_Vegetable_Pot_Pie_large.webp",
     },
-    category: "American / Poultry / Main Dish",
+    category: "Main Dish",
   },
   {
     id: 4,
@@ -62,7 +62,7 @@ window.productData = [
       large:
         "assets/img/products/Mediterranean_Chickpea_&_Quinoa_Salad_large.webp",
     },
-    category: "Mediterranean / Salad / Vegan",
+    category: "Salad",
   },
   {
     id: 5,
@@ -76,7 +76,7 @@ window.productData = [
       medium: "assets/img/products/Spicy_Szechuan_Dan_Dan_Noodles_medium.webp",
       large: "assets/img/products/Spicy_Szechuan_Dan_Dan_Noodles_large.webp",
     },
-    category: "Asian / Noodles / Spicy",
+    category: "Noodles",
   },
   {
     id: 6,
@@ -93,7 +93,7 @@ window.productData = [
       large:
         "assets/img/products/Creamy_Tuscan_Chicken_with_Sun-Dried_Tomatoes_large.webp",
     },
-    category: "Italian / Poultry / Main Dish",
+    category: "Main Dish",
   },
   {
     id: 7,
@@ -110,7 +110,7 @@ window.productData = [
       large:
         "assets/img/products/Southwestern_Black_Bean_&_Corn_Enchiladas_large.webp",
     },
-    category: "Mexican / Vegetarian / Main Dish",
+    category: "Main Dish",
   },
   {
     id: 8,
@@ -125,7 +125,7 @@ window.productData = [
       medium: "assets/img/products/Decadent_Chocolate_Lava_Cakes_medium.webp",
       large: "assets/img/products/Decadent_Chocolate_Lava_Cakes_large.webp",
     },
-    category: "Dessert / Chocolate / Vegetarian",
+    category: "Dessert",
   },
   {
     id: 9,
@@ -142,7 +142,7 @@ window.productData = [
       large:
         "assets/img/products/Asian_Style_Shrimp_&_Vegetable_Stir_Fry_large.webp",
     },
-    category: "Asian / Seafood / Stir-Fry",
+    category: "Stir-Fry",
   },
   {
     id: 10,
@@ -160,6 +160,6 @@ window.productData = [
       large:
         "assets/img/products/Creamy_Macaroni_&_Cheese_with_Smoked_Gouda_large.webp",
     },
-    category: "American / Pasta / Vegetarian",
+    category: "Pasta",
   },
 ];
