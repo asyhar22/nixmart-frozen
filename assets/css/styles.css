@@ -62,7 +62,8 @@ body {
 .hero {
   position: relative;
   text-align: center;
-  padding: 2.5rem 0;
+  padding: 0;
+  margin-bottom: 2rem;
 }
 .hero img {
   width: 100%;
@@ -74,13 +75,16 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 30%;
+  top: 20%;
   color: white;
   text-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+  width: 90%;
+  max-width: 600px;
 }
 .hero h1 {
-  font-size: 1.75rem;
+  font-size: 1.4rem;
   margin: 0;
+  line-height: 1.2;
 }
 .btn {
   display: inline-block;
@@ -90,9 +94,15 @@ body {
   padding: 0.6rem 1rem;
   border-radius: 8px;
   text-decoration: none;
+  font-size: 0.9rem;
 }
 .featured {
   padding: 2rem 0;
+  clear: both;
+}
+.hero-content p {
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
 }
 .grid {
   display: grid;
@@ -155,13 +165,48 @@ body {
 /* Responsive adjustments for image height */
 @media (min-width: 700px) {
   .card img { height: 260px; }
+  .hero-content {
+    top: 35%;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+  .btn {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
 }
 @media (min-width: 1000px) {
   .card img { height: 220px; }
+  .hero-content {
+    top: 40%;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+  }
 }
 
 /* Mobile: compact, horizontal card layout for better scannability and tap targets */
 @media (max-width: 699px) {
+  .hero {
+    margin-bottom: 1.5rem;
+  }
+  .hero-content {
+    top: 15%;
+  }
+  .hero h1 {
+    font-size: 1.2rem;
+  }
+  .hero-content p {
+    font-size: 0.85rem;
+  }
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.85rem;
+  }
   .grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
