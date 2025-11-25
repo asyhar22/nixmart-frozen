@@ -56,17 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const article = document.createElement("article");
     article.className = "card";
 
-    const link = document.createElement("a");
-    link.href = `product-detail.html?id=${p.id}`;
-
+    // Create image link (only the picture should be clickable)
+    const imgLink = document.createElement("a");
+    imgLink.href = `product-detail.html?id=${p.id}`;
+    imgLink.className = "card-image-link";
     const picture = createPicture(p.images || {}, p.name);
-    link.appendChild(picture);
+    imgLink.appendChild(picture);
 
+    // Card body contains name, excerpt and price. Only the name will be a link.
     const body = document.createElement("div");
     body.className = "card-body";
 
     const h3 = document.createElement("h3");
-    h3.textContent = p.name;
+    const nameLink = document.createElement("a");
+    nameLink.href = `product-detail.html?id=${p.id}`;
+    nameLink.className = "product-link";
+    nameLink.textContent = p.name;
+    h3.appendChild(nameLink);
     body.appendChild(h3);
 
     const ex = document.createElement("p");
@@ -79,8 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
     price.textContent = `Rp. ${p.price}`;
     body.appendChild(price);
 
-    link.appendChild(body);
-    article.appendChild(link);
+    article.appendChild(imgLink);
+    article.appendChild(body);
     grid.appendChild(article);
   });
 }); // Small helpers: set copyright year and simple interactions
